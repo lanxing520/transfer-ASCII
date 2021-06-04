@@ -1,14 +1,14 @@
+import privateKey from "../privateKey";
+import infura from "../privateKey";
+
 const {ethers} = require('ethers')
 
 const provider = ethers.getDefaultProvider("rinkeby", {
-  infura: {
-    projectId: '32cf0afd38a84af3afb52c8fdc5ba153',
-    projectSecret: '6dd4a4cce2f1456ba6425ec95b684ffa',
-  },
+  infura
 });
 
 // var provider = new ethers.providers.JsonRpcProvider('https://rinkeby.infura.io/v3/32cf0afd38a84af3afb52c8fdc5ba153')
-let privateKey = 'a6a9975cfae421e7d61ce67ee546c5bd52995630302d09811c6ef4b3937caabc';
+let privateKey = privateKey;
 var wallet = new ethers.Wallet(privateKey, provider)   //拥有私钥的钱包，可以进行读写操作
 console.log(wallet);
 

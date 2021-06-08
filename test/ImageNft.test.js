@@ -45,7 +45,7 @@ contract('ImageNft', (accounts) => {
     });
   
     // it('should have proper uri string of a minted token', async () => {
-    //   const uriStr = 
+    //   const uriStr =
     //   '    * * *   * * *\n' +
     //   '  * *   * * *   * *\n' +
     //   '  *       *       *\n' +
@@ -54,7 +54,7 @@ contract('ImageNft', (accounts) => {
     //   '      * *   * *\n' +
     //   '        * * *\n' +
     //   '          *';
-    //   //TODO: Fetch image here, and pass the hash 
+    //   //TODO: Fetch image here, and pass the hash
 
     //   const result = await imageNftContract.mint(uriStr, {from: accounts[0], value: web3.utils.toWei('0.01', 'ether')});
     //   const tokenId = result.logs[0].args.tokenId;
@@ -92,7 +92,7 @@ contract('ImageNft', (accounts) => {
     it('should be sellable', async () => {
       const owner = accounts[6];
       const price = web3.utils.toWei('1', 'ether');
-      const uriStr = 
+      const uriStr =
       '    * * *   * * *\n' +
       '  * *   * * *   * *\n' +
       '  *       *       *\n' +
@@ -103,7 +103,8 @@ contract('ImageNft', (accounts) => {
       '          *';
       const result = await imageNftContract.mint(uriStr, {from: owner, value: web3.utils.toWei('0.01', 'ether')});
       const tokenId = result.logs[0].args.tokenId;
-
+      //根据tokenId打印tokenURI
+      console.log(await imageNftContract.tokenURI(tokenId))
       await imageNftContract.setForSale(tokenId, price, {from: owner});
       sellingTokens.push({tokenId, price});
     });
@@ -113,7 +114,7 @@ contract('ImageNft', (accounts) => {
       const salePrice = web3.utils.toWei('0.4', 'ether');
       const result = await imageNftContract.mint('set for sale', {from: owner, value: web3.utils.toWei('0.01', 'ether')});
       const tokenId = result.logs[0].args.tokenId;
-      await imageNftContract.setForSale(tokenId, salePrice, {from: owner}); 
+      await imageNftContract.setForSale(tokenId, salePrice, {from: owner});
       let priceResult = await imageNftContract.getTokenPrice(tokenId);
       assert.equal(priceResult, salePrice);
     });
@@ -137,10 +138,10 @@ contract('ImageNft', (accounts) => {
         console.log('交易前tokenOwner：', ownerBefore)
 
         // 获取余额方法
-        async function getBalance(address){ 
+        async function getBalance(address){
           balance =  await web3.eth.getBalance(address)
-          let balance2 = new Number(web3.utils.fromWei(balance)) 
-          return balance2.toFixed(2) + ' ether' 
+          let balance2 = new Number(web3.utils.fromWei(balance))
+          return balance2.toFixed(2) + ' ether'
         }
         
 
@@ -196,7 +197,7 @@ contract('ImageNft', (accounts) => {
     //   const salePrice = web3.utils.toWei('0.4', 'ether');
     //   const result = await imageNftContract.mint('remove-from-sale2', {from: owner, value: web3.utils.toWei('0.01', 'ether')});
     //   const tokenId = result.logs[0].args.tokenId;
-    //   await imageNftContract.setForSale(tokenId, salePrice, {from: owner}); 
+    //   await imageNftContract.setForSale(tokenId, salePrice, {from: owner});
     //   await expectRevert(imageNftContract.removeFromSale(tokenId, {from: accounts[2]}), "revert");
 
     // })
